@@ -34,7 +34,7 @@ class _HomeContentState extends State<HomeContent> {
                       pinned: true,
                       flexibleSpace: FlexibleSpaceBar(
                           centerTitle: true,
-                          title: Text("Epidemias",
+                          title: Text("",
                               style: TextStyle(
                                   color: Colors.white, fontSize: 16.0))))
                 ];

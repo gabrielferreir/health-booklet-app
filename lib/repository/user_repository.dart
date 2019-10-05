@@ -14,20 +14,26 @@ class UserRepository {
   }
 
   Future<User> register(
-      {@required name, @required login, @required password}) async {
+      {@required name,
+      @required lastName,
+      @required email,
+      @required pass,
+      @required DateTime birthday,
+      @required isMale}) async {
     ApiResponse response =
-        await api.request(method: Method.post, path: '/api/user', body: {
-      'name': name,
-      'login': login,
-      'password': password,
-      'perfis': ['ADMIN'],
-//      'cpf': '10641091010'
+        await api.request(method: Method.post, path: '/user', body: {
+      'firstName': name,
+      'lastName': lastName,
+      'email': email,
+      'pass': pass,
+      'birthday': birthday.toIso8601String(),
+      'isMale': isMale
     });
 
     print(response.statusCode);
     print(response.body);
 
-    if (response.statusCode == 200)
+    if (response.statusCode == 201)
       return User(
           id: response.body['id'] != null
               ? response.body['id'].toString()

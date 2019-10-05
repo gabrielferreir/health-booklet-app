@@ -10,7 +10,8 @@ class MyDrawer extends StatelessWidget {
 
   logout(context) async {
     await userService.logout(prefs: Preferences());
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
@@ -19,13 +20,14 @@ class MyDrawer extends StatelessWidget {
         child: Column(children: <Widget>[
       UserAccountsDrawerHeader(
           accountName: Text(userService?.user?.name ?? ''),
-          accountEmail: Text('Epidemic Control'),
+          accountEmail: Text('Health Booklet'),
           currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: Text(userService?.user?.name != null
                   ? userService?.user?.name[0].toUpperCase()
                   : ''))),
-      Expanded(child: ListView(padding: EdgeInsets.all(0), children: <Widget>[])),
+      Expanded(
+          child: ListView(padding: EdgeInsets.all(0), children: <Widget>[])),
       Container(
           child: Align(
               alignment: FractionalOffset.bottomCenter,

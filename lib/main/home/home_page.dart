@@ -1,5 +1,4 @@
 import 'package:health_booklet/core/drawer/drawer.dart';
-import 'package:health_booklet/main/register_epidemic/register_epidemic_page.dart';
 import 'package:health_booklet/repository/epidemic_repository.dart';
 import 'package:health_booklet/services/user.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +22,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: MyDrawer(userService: UserService()),
-        floatingActionButton: FloatingActionButton(
-            onPressed: _goRegister, child: Icon(Icons.add)),
+        floatingActionButton:
+            FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
         body: HomeContent(homeBloc: homeBloc));
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  _goRegister() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => RegisterEpidemicPage()));
   }
 }

@@ -7,9 +7,17 @@ abstract class RegisterUserEvent extends Equatable {
 
 class Register extends RegisterUserEvent {
   String name;
-  String login;
-  String password;
+  String lastName;
+  String email;
+  String pass;
+  DateTime birthday;
+  bool isMale;
 
   Register(
-      {@required this.name, @required this.login, @required this.password});
+      {@required this.name,
+      @required this.lastName,
+      @required this.email,
+      @required this.pass,
+      this.birthday,
+      this.isMale});
 }
