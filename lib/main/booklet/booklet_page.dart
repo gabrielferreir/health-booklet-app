@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
-class HomePage extends StatefulWidget {
+class BookletPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _BookletPageState createState() => _BookletPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BookletPageState extends State<BookletPage> {
   List list = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +19,7 @@ class _HomePageState extends State<HomePage> {
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
-                    title: Text("Health Booklet",
+                    title: Text("Cartilhas",
                         style: TextStyle(color: Colors.white, fontSize: 16.0))))
           ];
         },
@@ -43,10 +37,5 @@ class _HomePageState extends State<HomePage> {
                       Padding(padding: EdgeInsets.only(top: 8)),
                       Text(list[index].name)
                     ]))))));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
