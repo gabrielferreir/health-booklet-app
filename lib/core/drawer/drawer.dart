@@ -19,12 +19,12 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
         child: Column(children: <Widget>[
       UserAccountsDrawerHeader(
-          accountName: Text(userService?.user?.name ?? ''),
+          accountName: Text(userService?.user?.email ?? ''),
           accountEmail: Text('Health Booklet'),
           currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Text(userService?.user?.name != null
-                  ? userService?.user?.name[0].toUpperCase()
+              child: Text(userService?.user?.email != null
+                  ? userService?.user?.email[0].toUpperCase()
                   : ''))),
       Expanded(
           child: ListView(padding: EdgeInsets.all(0), children: <Widget>[])),

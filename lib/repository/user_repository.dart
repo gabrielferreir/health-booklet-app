@@ -30,16 +30,8 @@ class UserRepository {
       'isMale': isMale
     });
 
-    print(response.statusCode);
-    print(response.body);
-
     if (response.statusCode == 201)
-      return User(
-          id: response.body['id'] != null
-              ? response.body['id'].toString()
-              : null,
-          token: response.body['Authorization'],
-          name: name);
+      return User(token: response.body['token'], email: email);
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }

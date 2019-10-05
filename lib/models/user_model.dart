@@ -3,19 +3,17 @@ import 'package:meta/meta.dart';
 
 @immutable
 class User extends Equatable implements Object {
-  final String id;
-  final String name;
+  final String email;
   final String token;
 
   User.fromJSON(Map<String, dynamic> json)
-      : this.id = json['id'],
-        this.name = json['name'],
+      : this.email = json['email'],
         this.token = json['token'];
 
-  User({this.id, this.name, this.token});
+  User({this.email, this.token});
 
   @override
   String toString() {
-    return 'User $id $name $token';
+    return 'User $email $token';
   }
 }

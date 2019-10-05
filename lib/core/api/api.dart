@@ -42,9 +42,6 @@ class ApiService {
       @required String path,
       Map<String, dynamic> body,
       headers}) async {
-    print(path);
-    print(body);
-    print(headers);
     switch (method) {
       case Method.get:
         return await _get(path, headers);

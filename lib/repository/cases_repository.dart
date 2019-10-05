@@ -19,12 +19,7 @@ class CasesRepository {
     ApiResponse response = await api.request(
         method: Method.get, path: '/api/case/getByEpidemicId/$idEpidemic');
 
-    print(response.statusCode);
-    print(response.body);
-
     List epidemics = response.body;
-
-    print(epidemics);
 
     if (response.statusCode == 200)
       return epidemics.map((item) => Case.fromJSON(item)).toList();
@@ -40,9 +35,6 @@ class CasesRepository {
       'latitude': epidemicCase.latitude,
       'longitude': epidemicCase.longitude
     });
-
-    print(response.statusCode);
-    print(response.body);
 
     if (response.statusCode == 200) return true;
 

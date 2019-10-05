@@ -26,7 +26,6 @@ class _LoginContentState extends State<LoginContent> {
     return BlocListener(
         bloc: widget.loginBloc,
         listener: (BuildContext context, LoginState state) {
-          print(state);
           if (state.stateAuth == StateAuth.logged) _goToHome();
           if (!state.loading) _showException(state.stateAuth);
         },

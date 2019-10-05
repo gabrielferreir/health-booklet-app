@@ -15,12 +15,8 @@ class EpidemicRepository {
   }
 
   Future<List<Epidemic>> readAll() async {
-    print('readAll');
     ApiResponse response =
         await api.request(method: Method.get, path: '/api/epidemic');
-
-    print(response.statusCode);
-    print(response.body);
 
     List epidemics = response.body;
 

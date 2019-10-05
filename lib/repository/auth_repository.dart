@@ -19,14 +19,8 @@ class AuthRepository {
         path: '/user/login',
         body: {'email': email, 'pass': pass});
 
-    print(response.statusCode);
-    print(response.body);
-
     if (response.statusCode == 200)
-      return User(
-          name: email,
-          id: response.body['id'],
-          token: response.body['Authorization']);
+      return User(email: email, token: response.body['token']);
     if (response.statusCode == 404) return throw NotFoundException();
     return throw UnknownException();
   }
