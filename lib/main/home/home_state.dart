@@ -1,11 +1,10 @@
-import 'package:health_booklet/models/epidemic_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 class HomeState extends Equatable {
   final bool loading;
-  final List<Epidemic> list;
+  final List list;
 
   HomeState({this.loading = false, this.list = const []})
       : super([loading, list]);
@@ -14,7 +13,7 @@ class HomeState extends Equatable {
     return HomeState();
   }
 
-  HomeState copyWith({bool loading, List<Epidemic> list}) {
+  HomeState copyWith({bool loading, List list}) {
     return HomeState(
         list: list ?? this.list,
         loading: loading == null ? this.loading : loading);

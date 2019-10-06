@@ -26,7 +26,7 @@ class ApiService {
       String fullPath = '$url$path';
 
       Map<String, dynamic> fullHeaders =
-          Headers(token: userService.token, json: headers).json;
+          Headers(token: userService.user.token, json: headers).json;
 
       Response response = await _callMethod(
           method: method, path: fullPath, body: body, headers: fullHeaders);

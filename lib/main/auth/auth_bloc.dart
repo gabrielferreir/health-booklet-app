@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is Started) {
       final user = await this.userService.read(prefs: event.prefs);
       userService.user = user;
+      print(user);
       if (user == null)
         yield currentState.copyWith(stateAuth: StateAuth.initial);
       else
