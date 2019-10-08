@@ -15,7 +15,7 @@ class BookletBloc extends Bloc<BookletEvent, BookletState> {
       try {
         yield currentState.copyWith(loading: true);
         final personBookletRepository = new PersonBookletRepository();
-        final list = await personBookletRepository.readAll();
+        final list = await personBookletRepository.readBooklet();
         yield currentState.copyWith(loading: false, list: list);
       } catch (e) {
         print(e);

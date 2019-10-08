@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_booklet/main/add_booklet/add_booklet_page.dart';
 
 import 'booklet.dart';
 
@@ -29,7 +30,7 @@ class _BookletContentState extends State<BookletContent> {
             ];
           },
           body: state.loading
-              ? Center(child: CircularProgressIndicator())
+              ? Column(children: <Widget>[LinearProgressIndicator()])
               : Container(
                   child: ListView(padding: const EdgeInsets.all(0), children: [
                   Column(
@@ -47,7 +48,12 @@ class _BookletContentState extends State<BookletContent> {
                     title: Text('ADICIONAR CARTILHA',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontWeight: FontWeight.w500)),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddBookletPage()));
+                    },
                   )
                 ])));
     });
