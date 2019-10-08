@@ -6,6 +6,8 @@ import 'package:meta/meta.dart';
 @immutable
 class AddBookletState extends Equatable {
   final bool loading;
+  final bool saving;
+  final bool created;
   final int page;
   final List<Person> listPersonBooklet;
   final List<Booklet> listBooklet;
@@ -14,6 +16,8 @@ class AddBookletState extends Equatable {
 
   AddBookletState(
       {this.loading = false,
+      this.saving = false,
+      this.created = false,
       this.page = 0,
       this.listPersonBooklet = const [],
       this.listBooklet = const [],
@@ -21,6 +25,8 @@ class AddBookletState extends Equatable {
       this.selectedBooklet})
       : super([
           loading,
+          saving,
+          created,
           page,
           listPersonBooklet,
           listBooklet,
@@ -34,6 +40,8 @@ class AddBookletState extends Equatable {
 
   AddBookletState copyWith(
       {bool loading,
+      bool saving,
+      bool created,
       int page,
       List<Person> listPersonBooklet,
       List<Booklet> listBooklet,
@@ -41,6 +49,8 @@ class AddBookletState extends Equatable {
       int selectedBooklet}) {
     return AddBookletState(
         loading: loading == null ? this.loading : loading,
+        saving: saving == null ? this.saving : saving,
+        created: created == null ? this.created : created,
         listPersonBooklet: listPersonBooklet ?? this.listPersonBooklet,
         page: page ?? this.page,
         listBooklet: listBooklet ?? this.listBooklet,

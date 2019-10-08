@@ -11,70 +11,116 @@ class AddBookletContent extends StatefulWidget {
 }
 
 class _AddBookletContentState extends State<AddBookletContent> {
-  List list = [];
+  PageController _pageController = new PageController();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddBookletBloc, AddBookletState>(
         builder: (context, state) {
-      return NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                  expandedHeight: 160.0,
-                  floating: false,
-                  pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: true,
-                      title: Text('Adicionar Cartilha',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 16.0))))
-            ];
-          },
-          body: Material(
-              child: Stack(children: <Widget>[
-            PageView(children: <Widget>[
-              Column(
-                children: state.listPersonBooklet
-                    .map((item) => PersonItemList(
-                        person: item,
-                        idSelected: state.selectedPerson,
-                        onChanged: (int id) {
-                          BlocProvider.of<AddBookletBloc>(context)
-                              .dispatch(SelectedPerson(id));
-                        }))
-                    .toList(),
-              ),
-              Column(
-                  children: state.listBooklet
-                      .map((item) => BookletItemList(
-                          booklet: item,
-                          idSelected: state.selectedBooklet,
-                          onChanged: (int id) {
-                            BlocProvider.of<AddBookletBloc>(context)
-                                .dispatch(SelectedBooklet(id));
-                          }))
-                      .toList()),
-              Center(child: Text('ABC'))
-            ]),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    width: double.infinity,
-                    height: 56.0,
-                    color: Theme.of(context).primaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(''),
-                          Text(''),
-                          Text('AVANÇAR',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500))
-                        ])))
-          ])));
+      return BlocListener<AddBookletBloc, AddBookletState>(
+        listener: (context, state) {
+          print(state);
+          _pageController.animateToPage(state.page,
+              duration: Duration(milliseconds: 180), curve: Curves.ease);
+
+          if (state.created) {
+            Navigator.pop(context, true);
+          }
+        },
+        child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                    expandedHeight: 160.0,
+                    floating: false,
+                    pinned: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                        centerTitle: true,
+                        title: Text('Adicionar Cartilha',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 16.0))))
+              ];
+            },
+            body: Material(
+                child: Stack(children: <Widget>[
+              PageView(
+                  controller: _pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    Column(
+                      children: state.listPersonBooklet
+                          .map((item) => PersonItemList(
+                              person: item,
+                              idSelected: state.selectedPerson,
+                              onChanged: (int id) {
+                                BlocProvider.of<AddBookletBloc>(context)
+                                    .dispatch(SelectedPerson(id));
+                              }))
+                          .toList(),
+                    ),
+                    Column(
+                        children: state.listBooklet
+                            .map((item) => BookletItemList(
+                                booklet: item,
+                                idSelected: state.selectedBooklet,
+                                onChanged: (int id) {
+                                  BlocProvider.of<AddBookletBloc>(context)
+                                      .dispatch(SelectedBooklet(id));
+                                }))
+                            .toList()),
+                    Center(child: Text('ABC'))
+                  ]),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      width: double.infinity,
+                      height: 56.0,
+                      color: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            state.page == 1
+                                ? GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<AddBookletBloc>(context)
+                                          .dispatch(GoToPerson());
+                                    },
+                                    child: Text('VOLTAR',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500)),
+                                  )
+                                : Text(''),
+                            Text(''),
+                            state.page == 1
+                                ? GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<AddBookletBloc>(context)
+                                          .dispatch(Register(
+                                              idPerson: state.selectedPerson,
+                                              idBooklet:
+                                                  state.selectedBooklet));
+                                    },
+                                    child: Text('SALVAR',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500)),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<AddBookletBloc>(context)
+                                          .dispatch(GoToBooklet());
+                                    },
+                                    child: Text('AVANÇAR',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500)),
+                                  )
+                          ])))
+            ]))),
+      );
     });
   }
 }

@@ -48,11 +48,17 @@ class _BookletContentState extends State<BookletContent> {
                     title: Text('ADICIONAR CARTILHA',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontWeight: FontWeight.w500)),
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      final add = await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => AddBookletPage()));
+                      if (add) {
+                        BlocProvider.of<BookletBloc>(context)
+                            .dispatch(Started());
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Cartilha adicionada com sucesso!')));
+                      }
                     },
                   )
                 ])));

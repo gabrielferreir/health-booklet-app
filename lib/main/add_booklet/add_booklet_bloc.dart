@@ -34,5 +34,25 @@ class AddBookletBloc extends Bloc<BookletEvent, AddBookletState> {
     if (event is SelectedBooklet) {
       yield currentState.copyWith(selectedBooklet: event.idBooklet);
     }
+
+    if (event is GoToBooklet) {
+      yield currentState.copyWith(page: 1);
+    }
+
+    if (event is GoToPerson) {
+      yield currentState.copyWith(page: 0);
+    }
+
+    if (event is Register) {
+      try {
+        yield currentState.copyWith(saving: true);
+        final personBookletRepository = new PersonBookletRepository();
+        await personBookletRepository.create(
+            idPerson: event.idPerson, idBooklet: event.idBooklet);
+        yield currentState.copyWith(saving: false, created: true);
+      } catch (e) {
+        yield currentState.copyWith(saving: false);
+      }
+    }
   }
 }

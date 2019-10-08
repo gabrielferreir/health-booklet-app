@@ -16,3 +16,14 @@ class SelectedBooklet extends BookletEvent {
 
   SelectedBooklet(this.idBooklet);
 }
+
+class GoToBooklet extends BookletEvent {}
+
+class GoToPerson extends BookletEvent {}
+
+class Register extends BookletEvent {
+  final int idPerson;
+  final int idBooklet;
+
+  Register({@required this.idPerson, @required this.idBooklet});
+}

@@ -38,4 +38,15 @@ class PersonBookletRepository {
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }
+
+  create({@required int idPerson, @required int idBooklet}) async {
+    ApiResponse response = await api.request(
+        method: Method.post,
+        path: '/person-booklet/',
+        body: {'idPerson': idPerson, 'idBooklet': idBooklet});
+
+    if (response.statusCode == 200) return true;
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
 }
