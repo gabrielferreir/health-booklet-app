@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/main/add_booklet/add_booklet_page.dart';
+import 'package:health_booklet/main/vaccines_booklet/vaccines_booklet_page.dart';
 
 import 'booklet.dart';
 
@@ -40,7 +41,12 @@ class _BookletContentState extends State<BookletContent> {
                                 subtitle: Text(item.person),
                                 trailing: Icon(Icons.arrow_forward),
                                 onTap: () {
-                                  print('TAP');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              VaccinesBookletPage(
+                                                  booklet: item)));
                                 },
                               ))
                           .toList()),

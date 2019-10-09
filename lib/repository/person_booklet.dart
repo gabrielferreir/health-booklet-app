@@ -5,6 +5,7 @@ import 'package:health_booklet/models/item_list_person_booklet.dart';
 import 'package:health_booklet/models/person_model.dart';
 import 'package:health_booklet/models/person_model.dart';
 import 'package:health_booklet/models/user_model.dart';
+import 'package:health_booklet/models/person_vaccine_model.dart';
 import 'package:health_booklet/services/user.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
@@ -24,6 +25,20 @@ class PersonBookletRepository {
       return List<ItemListPersonBooklet>.from(response.body
           .map((item) => ItemListPersonBooklet.fromJSON(item))
           .toList());
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
+
+  readBookletById() async {
+    ApiResponse response =
+        await api.request(method: Method.get, path: '/person-booklet/1');
+
+    if (response.statusCode == 200) {
+      List vaccines = response.body['vaccines'];
+      print(vaccines.length);
+      return List<PersonVaccine>.from(
+          vaccines.map((item) => PersonVaccine.fromJSON(item)).toList());
+    }
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }

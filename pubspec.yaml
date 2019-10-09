@@ -31,6 +31,7 @@ dependencies:
   meta: ^1.1.6
   equatable: ^0.2.3
   path: ^1.6.2
+  timeago: ^2.0.20
 
 dev_dependencies:
   flutter_test:
