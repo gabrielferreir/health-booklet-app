@@ -12,21 +12,6 @@ class NavigatorPage extends StatefulWidget {
 class _NavigatorPageState extends State<NavigatorPage> {
   int _currentIndex = 0;
 
-  //        bottomNavigationBar: BottomNavigationBar(
-//            backgroundColor: Theme.of(context).primaryColor,
-//            selectedItemColor: Colors.white,
-//            unselectedItemColor: Colors.white60,
-//            currentIndex: _currentIndex,
-//            onTap: onTabTapped,
-//            items: [
-//              BottomNavigationBarItem(
-//                  icon: Icon(Icons.home), title: Text('Home')),
-//              BottomNavigationBarItem(
-//                  icon: Icon(Icons.library_books), title: Text('Cartilha')),
-//              BottomNavigationBarItem(
-//                  icon: Icon(Icons.person), title: Text('Perfil'))
-//            ]),
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +26,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
                 activeColor: Theme.of(context).primaryColor,
               ),
               BottomNavyBarItem(
-                  icon: Icon(Icons.message),
+                  icon: Icon(Icons.library_books),
                   title: Text('Vacinas'),
                   activeColor: Theme.of(context).primaryColor),
               BottomNavyBarItem(
