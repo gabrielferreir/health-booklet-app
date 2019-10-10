@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/core/utils/DataUtils.dart';
 import 'package:health_booklet/models/item_list_person_booklet.dart';
 import 'package:health_booklet/models/person_vaccine_model.dart';
+import 'package:path/path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'vaccines_booklet.dart';
@@ -24,7 +25,11 @@ class _VaccinesBookletContentState extends State<VaccinesBookletContent> {
         builder: (context, state) {
       print('state $state');
       return BlocListener<VaccinesBookletBloc, VaccinesBookletState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state.sended)
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('Atualizado com sucesso!')));
+          },
           child: Stack(children: <Widget>[
             Container(
                 height: 120,
@@ -58,7 +63,12 @@ class _VaccinesBookletContentState extends State<VaccinesBookletContent> {
                       )
                     : ListView(
                         children: state.vaccines
-                            .map((item) => VaccineItemList(personVaccine: item))
+                            .asMap()
+                            .map((index, item) => MapEntry(
+                                index,
+                                VaccineItemList(
+                                    personVaccine: item, index: index)))
+                            .values
                             .toList()))
           ]));
     });
@@ -67,18 +77,23 @@ class _VaccinesBookletContentState extends State<VaccinesBookletContent> {
 
 class VaccineItemList extends StatelessWidget {
   final PersonVaccine personVaccine;
+  final int index;
 
-  VaccineItemList({@required this.personVaccine});
+  VaccineItemList({@required this.personVaccine, @required this.index});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
           '${personVaccine.vaccine.name} ${personVaccine.vaccine.dose != null ? '- ' + personVaccine.vaccine.dose : ''}'),
-      subtitle: Text('${DateUtils.toBRTime(personVaccine.minDate)} - ${DateUtils.toBRTime(personVaccine.maxDate)}'),
+      subtitle: Text(
+          '${DateUtils.toBRTime(personVaccine.minDate)} - ${DateUtils.toBRTime(personVaccine.maxDate)}'),
       leading: Checkbox(
-        value: true,
-      ),
+          value: personVaccine.isOkay,
+          onChanged: (bool value) {
+            BlocProvider.of<VaccinesBookletBloc>(context).dispatch(CheckVaccine(
+                idVaccine: personVaccine.id, value: value, index: index));
+          }),
       trailing: IconButton(
         icon: Icon(Icons.info),
         onPressed: () {},

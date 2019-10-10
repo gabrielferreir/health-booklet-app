@@ -64,4 +64,15 @@ class PersonBookletRepository {
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }
+
+  isOkay({@required int idVaccine, @required bool value}) async {
+    ApiResponse response = await api.request(
+        method: Method.put,
+        path: '/person-booklet/vaccine/$idVaccine',
+        body: {'value': value});
+
+    if (response.statusCode == 200) return true;
+    return throw UnknownException();
+  }
+
 }
