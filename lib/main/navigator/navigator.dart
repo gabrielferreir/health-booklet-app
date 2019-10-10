@@ -1,3 +1,4 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:health_booklet/main/booklet/booklet_page.dart';
 import 'package:health_booklet/main/home/home.dart';
@@ -11,22 +12,42 @@ class NavigatorPage extends StatefulWidget {
 class _NavigatorPageState extends State<NavigatorPage> {
   int _currentIndex = 0;
 
+  //        bottomNavigationBar: BottomNavigationBar(
+//            backgroundColor: Theme.of(context).primaryColor,
+//            selectedItemColor: Colors.white,
+//            unselectedItemColor: Colors.white60,
+//            currentIndex: _currentIndex,
+//            onTap: onTabTapped,
+//            items: [
+//              BottomNavigationBarItem(
+//                  icon: Icon(Icons.home), title: Text('Home')),
+//              BottomNavigationBarItem(
+//                  icon: Icon(Icons.library_books), title: Text('Cartilha')),
+//              BottomNavigationBarItem(
+//                  icon: Icon(Icons.person), title: Text('Perfil'))
+//            ]),
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white60,
-            currentIndex: _currentIndex,
-            onTap: onTabTapped,
+        bottomNavigationBar: BottomNavyBar(
+            selectedIndex: _currentIndex,
+            showElevation: false,
+            onItemSelected: onTabTapped,
             items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), title: Text('Home')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.library_books), title: Text('Cartilha')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), title: Text('Perfil'))
+              BottomNavyBarItem(
+                icon: Icon(Icons.apps),
+                title: Text('Home'),
+                activeColor: Theme.of(context).primaryColor,
+              ),
+              BottomNavyBarItem(
+                  icon: Icon(Icons.message),
+                  title: Text('Vacinas'),
+                  activeColor: Theme.of(context).primaryColor),
+              BottomNavyBarItem(
+                  icon: Icon(Icons.settings),
+                  title: Text('Perfil'),
+                  activeColor: Theme.of(context).primaryColor)
             ]),
         body: page(_currentIndex));
   }

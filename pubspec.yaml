@@ -32,6 +32,7 @@ dependencies:
   equatable: ^0.2.3
   path: ^1.6.2
   timeago: ^2.0.20
+  bottom_navy_bar: ^5.2.0
 
 dev_dependencies:
   flutter_test:

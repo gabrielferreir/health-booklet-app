@@ -23,7 +23,6 @@ class _VaccinesBookletContentState extends State<VaccinesBookletContent> {
   Widget build(BuildContext context) {
     return BlocBuilder<VaccinesBookletBloc, VaccinesBookletState>(
         builder: (context, state) {
-      print('state $state');
       return BlocListener<VaccinesBookletBloc, VaccinesBookletState>(
           listener: (context, state) {
             if (state.sended)
