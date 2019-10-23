@@ -35,4 +35,19 @@ class UserRepository {
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }
+
+  Future<User> read() async {
+    try {
+      ApiResponse response =
+          await api.request(method: Method.get, path: '/user/my/');
+
+      print(response.body);
+
+      if (response.statusCode == 200) return User.fromJSON(response.body);
+      if (response.statusCode == 401) return throw BadRequestException();
+      return throw UnknownException();
+    } catch (e) {
+      print(e);
+    }
+  }
 }
