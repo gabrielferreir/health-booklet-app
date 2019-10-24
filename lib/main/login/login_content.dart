@@ -1,6 +1,7 @@
 import 'package:health_booklet/core/exceptions/exceptions.dart';
 import 'package:health_booklet/core/prefs/preferences.dart';
 import 'package:health_booklet/main/home/home_page.dart';
+import 'package:health_booklet/main/navigator/navigator.dart';
 import 'package:health_booklet/main/register_user/register_user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,7 +106,7 @@ class _LoginContentState extends State<LoginContent> {
 
   _goToHome() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context, MaterialPageRoute(builder: (context) => NavigatorPage()));
   }
 
   _goRegister() {

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final primaryColor = Colors.indigo.shade700;
-final accentColor = Colors.indigoAccent;
+final accentColor = Colors.deepPurple;
 
 final theme = ThemeData(
     primaryColor: primaryColor,
