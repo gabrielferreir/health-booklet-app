@@ -206,9 +206,12 @@ class ProfileContent extends StatelessWidget {
 
   Widget _addDependents(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context)
+      onTap: () async {
+        final addPerson = await Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => AddPersonPage()));
+
+        if (addPerson == true)
+          BlocProvider.of<ProfileBloc>(context).dispatch(Started());
       },
       child: Card(
           elevation: 2.0,
