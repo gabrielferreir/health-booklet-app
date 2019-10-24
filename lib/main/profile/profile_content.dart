@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/core/prefs/preferences.dart';
 import 'package:health_booklet/core/utils/Age.dart';
+import 'package:health_booklet/main/add_person/add_person_page.dart';
 import 'package:health_booklet/main/login/login_page.dart';
 import 'package:health_booklet/main/profile/profile.dart';
 import 'package:health_booklet/models/person_model.dart';
@@ -204,23 +205,30 @@ class ProfileContent extends StatelessWidget {
   }
 
   Widget _addDependents(BuildContext context) {
-    return Card(
-        elevation: 2.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        margin: const EdgeInsets.only(left: 16.0),
-        child: Container(
-            width: 200,
-            height: 270,
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(24)),
-            child: Container(
-                width: double.infinity,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.add, size: 80, color: Colors.white70)
-                    ]))));
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => AddPersonPage()));
+      },
+      child: Card(
+          elevation: 2.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          margin: const EdgeInsets.only(left: 16.0),
+          child: Container(
+              width: 200,
+              height: 270,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(24)),
+              child: Container(
+                  width: double.infinity,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.add, size: 80, color: Colors.white70)
+                      ])))),
+    );
   }
 }

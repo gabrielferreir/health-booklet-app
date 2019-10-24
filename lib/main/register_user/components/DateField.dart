@@ -26,28 +26,56 @@ class _DateFieldState extends State<DateField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: Text('Selecione sua data de aniversario'),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                DateUtils.toBRTime(widget.selectedDate),
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              IconButton(
-                onPressed: () => _selectDate(context),
-                icon: Icon(Icons.today, color: Theme.of(context).primaryColor),
-              ),
-            ],
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 16),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: Theme.of(context).primaryColor)),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 8.0, right: 8.0, top: 12, bottom: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        DateUtils.toBRTime(widget.selectedDate),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.8),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      IconButton(
+                        onPressed: () => _selectDate(context),
+                        icon: Icon(Icons.today,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+          Positioned(
+            top: 8,
+            left: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              color: Colors.white,
+              child: Text(
+                'Selecione sua data de aniversario',
+                style: TextStyle(
+                    fontSize: 12, color: Theme.of(context).primaryColor),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
