@@ -60,9 +60,6 @@ class PersonRepository {
     ApiResponse response =
         await api.request(method: Method.delete, path: '/person/$id');
 
-    print(response.statusCode);
-    print(response.body);
-
     if (response.statusCode == 200) return true;
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
