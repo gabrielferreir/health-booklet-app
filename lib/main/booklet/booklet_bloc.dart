@@ -21,5 +21,14 @@ class BookletBloc extends Bloc<BookletEvent, BookletState> {
         print(e);
       }
     }
+
+    if (event is Delete) {
+      try {
+        final personBookletRepository = new PersonBookletRepository();
+        await personBookletRepository.delete(idBooklet: event.id);
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 }

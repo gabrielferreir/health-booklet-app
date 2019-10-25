@@ -65,6 +65,15 @@ class PersonBookletRepository {
     return throw UnknownException();
   }
 
+  delete({@required int idBooklet}) async {
+    ApiResponse response = await api.request(
+        method: Method.delete, path: '/person-booklet/$idBooklet');
+
+    if (response.statusCode == 200) return true;
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
+
   isOkay({@required int idVaccine, @required bool value}) async {
     ApiResponse response = await api.request(
         method: Method.put,

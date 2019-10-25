@@ -36,7 +36,21 @@ class _BookletContentState extends State<BookletContent> {
                   child: ListView(padding: const EdgeInsets.all(0), children: [
                   Column(
                       children: state.list
-                          .map((item) => ListTile(
+                          .map((item) => Dismissible(
+                              key: Key(item.id.toString()),
+                              direction: DismissDirection.startToEnd,
+                              onDismissed: (direction) {
+                                BlocProvider.of<BookletBloc>(context)
+                                    .dispatch(Delete(id: item.id));
+                              },
+                              background: Container(
+                                  color: Colors.red,
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Icon(Icons.delete,
+                                          color: Colors.white))),
+                              child: ListTile(
                                 title: Text(item.booklet),
                                 subtitle: Text(item.person),
                                 trailing: Icon(Icons.arrow_forward),
@@ -48,7 +62,7 @@ class _BookletContentState extends State<BookletContent> {
                                               VaccinesBookletPage(
                                                   booklet: item)));
                                 },
-                              ))
+                              )))
                           .toList()),
                   ListTile(
                     title: Text('ADICIONAR CARTILHA',
