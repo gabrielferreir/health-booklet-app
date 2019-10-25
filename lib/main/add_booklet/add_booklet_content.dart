@@ -19,7 +19,6 @@ class _AddBookletContentState extends State<AddBookletContent> {
         builder: (context, state) {
       return BlocListener<AddBookletBloc, AddBookletState>(
         listener: (context, state) {
-          print(state);
           _pageController.animateToPage(state.page,
               duration: Duration(milliseconds: 180), curve: Curves.ease);
 
@@ -48,17 +47,22 @@ class _AddBookletContentState extends State<AddBookletContent> {
                   controller: _pageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
-                    Column(
-                      children: state.listPersonBooklet
-                          .map((item) => PersonItemList(
-                              person: item,
-                              idSelected: state.selectedPerson,
-                              onChanged: (int id) {
-                                BlocProvider.of<AddBookletBloc>(context)
-                                    .dispatch(SelectedPerson(id));
-                              }))
-                          .toList(),
-                    ),
+                    state.listPersonBooklet.length > 0
+                        ? Column(
+                            children: state.listPersonBooklet
+                                .map((item) => PersonItemList(
+                                    person: item,
+                                    idSelected: state.selectedPerson,
+                                    onChanged: (int id) {
+                                      BlocProvider.of<AddBookletBloc>(context)
+                                          .dispatch(SelectedPerson(id));
+                                    }))
+                                .toList(),
+                          )
+                        : ListTile(
+                            dense: true,
+                            title: Text('Nenhum registro foi encontrado'),
+                          ),
                     Column(
                         children: state.listBooklet
                             .map((item) => BookletItemList(

@@ -17,7 +17,7 @@ class VaccinesBookletBloc
       try {
         yield currentState.copyWith(loading: true);
         final personBookletRepository = new PersonBookletRepository();
-        final vaccines = await personBookletRepository.readBookletById();
+        final vaccines = await personBookletRepository.readBookletById(id: event.id);
         yield currentState.copyWith(loading: false, vaccines: vaccines);
       } catch (e) {
         yield currentState.copyWith(loading: false);

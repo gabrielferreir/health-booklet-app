@@ -29,9 +29,9 @@ class PersonBookletRepository {
     return throw UnknownException();
   }
 
-  readBookletById() async {
+  readBookletById({@required int id}) async {
     ApiResponse response =
-        await api.request(method: Method.get, path: '/person-booklet/1');
+        await api.request(method: Method.get, path: '/person-booklet/$id');
 
     if (response.statusCode == 200) {
       List vaccines = response.body['vaccines'];
@@ -74,5 +74,4 @@ class PersonBookletRepository {
     if (response.statusCode == 200) return true;
     return throw UnknownException();
   }
-
 }
