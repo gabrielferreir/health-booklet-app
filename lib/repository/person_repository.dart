@@ -36,4 +36,35 @@ class PersonRepository {
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }
+
+  update(
+      {@required int id,
+      @required String name,
+      @required DateTime birthday,
+      @required bool isMale}) async {
+    ApiResponse response = await api.request(
+        method: Method.put,
+        path: '/person/$id',
+        body: {
+          'name': name,
+          'birthday': birthday.toIso8601String(),
+          'isMale': isMale
+        });
+
+    if (response.statusCode == 200) return true;
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
+
+  delete({@required int id}) async {
+    ApiResponse response =
+        await api.request(method: Method.delete, path: '/person/$id');
+
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) return true;
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
 }

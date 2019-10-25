@@ -7,19 +7,22 @@ import 'package:meta/meta.dart';
 class AddPersonState extends Equatable {
   final bool saving;
   final bool registred;
+  final bool deleted;
 
   AddPersonState({
     this.registred = false,
     this.saving = false,
-  }) : super([registred, saving]);
+    this.deleted = false,
+  }) : super([registred, saving, deleted]);
 
   factory AddPersonState.initial() {
     return AddPersonState();
   }
 
-  AddPersonState copyWith({bool registred, bool saving}) {
+  AddPersonState copyWith({bool registred, bool saving, bool deleted}) {
     return AddPersonState(
         registred: registred == null ? this.registred : registred,
-        saving: saving == null ? this.saving : saving);
+        saving: saving == null ? this.saving : saving,
+        deleted: deleted == null ? this.deleted : deleted);
   }
 }

@@ -16,13 +16,37 @@ class AddPersonBloc extends Bloc<AddPersonEvent, AddPersonState> {
   Stream<AddPersonState> mapEventToState(AddPersonEvent event) async* {
     if (event is Register) {
       try {
-        print(event);
         yield currentState.copyWith(saving: true);
         await personRepository.create(
             name: event.name, birthday: event.birthday, isMale: event.isMale);
         yield currentState.copyWith(saving: false, registred: true);
       } catch (e) {
-        print('error $e');
+        yield currentState.copyWith(saving: false);
+      }
+    }
+
+    if (event is Edit) {
+      try {
+        yield currentState.copyWith(saving: true);
+        await personRepository.update(
+            id: event.id,
+            name: event.name,
+            birthday: event.birthday,
+            isMale: event.isMale);
+        yield currentState.copyWith(saving: false, registred: true);
+      } catch (e) {
+        print(e);
+        yield currentState.copyWith(saving: false);
+      }
+    }
+
+    if (event is Delete) {
+      try {
+        yield currentState.copyWith(saving: true);
+        await personRepository.delete(id: event.id);
+        yield currentState.copyWith(saving: false, deleted: true);
+      } catch (e) {
+        print(e);
         yield currentState.copyWith(saving: false);
       }
     }

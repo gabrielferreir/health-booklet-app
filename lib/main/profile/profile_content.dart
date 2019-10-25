@@ -5,23 +5,15 @@ import 'package:health_booklet/core/prefs/preferences.dart';
 import 'package:health_booklet/core/utils/Age.dart';
 import 'package:health_booklet/main/add_person/add_person_page.dart';
 import 'package:health_booklet/main/login/login_page.dart';
+import 'package:health_booklet/main/navigator/navigator.dart';
 import 'package:health_booklet/main/profile/profile.dart';
 import 'package:health_booklet/models/person_model.dart';
 import 'package:health_booklet/services/user.dart';
-
-final colors = [
-  Colors.deepPurple,
-  Colors.blue.shade300,
-  Colors.blueAccent,
-  Colors.indigo,
-  Colors.pinkAccent
-];
 
 class ProfileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-      print('user ${state.user}');
       if (state.loading)
         return Center(child: CircularProgressIndicator());
       else if (state.user != null)
@@ -111,23 +103,20 @@ class ProfileContent extends StatelessWidget {
                     ]),
                   ),
                   Container(
-                    width: double.infinity,
-                    height: 300,
+                      width: double.infinity,
+                      height: 300,
 //                color: Colors.red,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(
-                          top: 16.0, bottom: 16.0, right: 16.0),
-                      child: Row(
-                        children: [
-                          _addDependents(context),
-                          ...state.user.persons
-                              .map<Widget>((item) => _dependents(item, context))
-                              .toList()
-                        ],
-                      ),
-                    ),
-                  )
+                      child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(
+                              top: 16.0, bottom: 16.0, right: 16.0),
+                          child: Row(children: [
+                            _addDependents(context),
+                            ...state.user.persons
+                                .map<Widget>(
+                                    (item) => _dependents(item, context))
+                                .toList()
+                          ])))
                 ])),
             Padding(
               padding: const EdgeInsets.only(right: 8.0, top: 32),
@@ -155,53 +144,66 @@ class ProfileContent extends StatelessWidget {
   }
 
   Widget _dependents(Person item, BuildContext context) {
-    return Card(
-        elevation: 2.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        margin: const EdgeInsets.only(left: 16.0),
-        child: Container(
-            width: 200,
-            height: 270,
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(24)),
-            child: Stack(children: <Widget>[
-              Container(
-                  width: double.infinity,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                            backgroundColor: Colors.white70,
-                            maxRadius: 42,
-                            child: Text(item.name[0],
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w500)))
-                      ])),
-              Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      width: double.infinity,
-                      height: 80,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(item.name,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500)),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
-                                child: Text(
-                                    '${Age.by(item.birthday)} ${Age.by(item.birthday) > 1 ? 'anos' : 'ano'}',
-                                    style: TextStyle(
-                                        color: Colors.white60, fontSize: 16)))
-                          ])))
-            ])));
+    return InkWell(
+      onTap: () async {
+        final updatePerson = await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    AddPersonPage(editing: true, person: item)));
+
+        if (updatePerson == true)
+          BlocProvider.of<ProfileBloc>(context).dispatch(Started());
+      },
+      child: Card(
+          elevation: 2.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          margin: const EdgeInsets.only(left: 16.0),
+          child: Container(
+              width: 200,
+              height: 270,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(24)),
+              child: Stack(children: <Widget>[
+                Container(
+                    width: double.infinity,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          CircleAvatar(
+                              backgroundColor: Colors.white70,
+                              maxRadius: 42,
+                              child: Text(item.name[0],
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w500)))
+                        ])),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                        width: double.infinity,
+                        height: 80,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(item.name,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500)),
+                              Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: Text(
+                                      '${Age.by(item.birthday)} ${Age.by(item.birthday) > 1 ? 'anos' : 'ano'}',
+                                      style: TextStyle(
+                                          color: Colors.white60, fontSize: 16)))
+                            ])))
+              ]))),
+    );
   }
 
   Widget _addDependents(BuildContext context) {
