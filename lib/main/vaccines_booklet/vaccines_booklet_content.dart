@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/core/utils/DataUtils.dart';
+import 'package:health_booklet/main/detail/detail_page.dart';
 import 'package:health_booklet/models/item_list_person_booklet.dart';
 import 'package:health_booklet/models/person_vaccine_model.dart';
 import 'package:path/path.dart';
@@ -95,7 +96,10 @@ class VaccineItemList extends StatelessWidget {
           }),
       trailing: IconButton(
         icon: Icon(Icons.info),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DetailPage(personVaccine: personVaccine)));
+        },
       ),
     );
   }
