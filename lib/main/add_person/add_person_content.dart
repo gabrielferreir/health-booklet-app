@@ -57,12 +57,12 @@ class _AddPersonContentState extends State<AddPersonContent> {
         floatingActionButton: FloatingActionButton.extended(
             onPressed: _onSubmit,
             label: !state.saving
-                ? Text(widget.editing
+                ? Text(widget.editing == true
                     ? 'EDITAR DEPENDENTE'
                     : 'ADICIONAR DEPENDENTE')
                 : Text('SALVANDO'),
             icon: !state.saving
-                ? (widget.editing ? Icon(Icons.edit) : Icon(Icons.add))
+                ? (widget.editing == true ? Icon(Icons.edit) : Icon(Icons.add))
                 : null),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
@@ -91,7 +91,7 @@ class _AddPersonContentState extends State<AddPersonContent> {
   }
 
   _onSubmit() {
-    BlocProvider.of<AddPersonBloc>(context).dispatch(widget.editing
+    BlocProvider.of<AddPersonBloc>(context).dispatch(widget.editing == true
         ? Edit(
             id: widget.person.id,
             name: name.text,
