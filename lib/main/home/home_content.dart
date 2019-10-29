@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/main/home/home.dart';
+import 'package:health_booklet/models/next_vaccine_item.dart';
 import 'package:health_booklet/models/percentage_item.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
 
 class HomeContent extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class HomeContent extends StatefulWidget {
 class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
+    timeago.setLocaleMessages('pt_BR_short', timeago.PtBrShortMessages());
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return SingleChildScrollView(
@@ -42,10 +46,9 @@ class _HomeContentState extends State<HomeContent> {
                                   fontSize: 18,
                                   fontWeight: FontWeight.w300,
                                   color: Colors.black54))),
-                      CardVaccine(),
-                      CardVaccine(
-                        type: 0,
-                      ),
+                      ...state.listVaccine
+                          .map<Widget>((item) => CardVaccine(item: item))
+                          .toList(),
 //                MyCard(),
                     ],
                   ));
@@ -136,9 +139,9 @@ class Progress extends StatelessWidget {
 }
 
 class CardVaccine extends StatelessWidget {
-  final int type;
+  final NextVaccineItem item;
 
-  CardVaccine({@required this.type});
+  CardVaccine({@required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -154,25 +157,25 @@ class CardVaccine extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Febre Amarela',
+                  Text(item.vaccine,
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.black87,
                           fontWeight: FontWeight.w500)),
                   Container(height: 2),
-                  Text('Gabriel Ferreira',
+                  Text(item.person,
                       style: TextStyle(fontSize: 14, color: Colors.black54))
                 ],
               ),
             ),
-            type == 0
+            item.maxDate.isAfter(DateTime.now())
                 ? Column(children: <Widget>[
-                    Text('1',
+                    Text(timeago.format(item.minDate, allowFromNow: true, locale: 'pt_BR_short').replaceAll(RegExp('[^0-9.]'), ''),
                         style: TextStyle(
                             fontSize: 24,
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w500)),
-                    Text('MÊS',
+                    Text(timeago.format(item.minDate, allowFromNow: true, locale: 'pt_BR_short').replaceAll(RegExp('[0-9.]'), '').toUpperCase(),
                         style: TextStyle(
                             fontSize: 14,
                             color: Theme.of(context)
