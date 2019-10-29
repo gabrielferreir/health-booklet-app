@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/main/home/home.dart';
 import 'package:health_booklet/models/next_vaccine_item.dart';
 import 'package:health_booklet/models/percentage_item.dart';
+import 'package:health_booklet/services/user.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 
@@ -26,7 +27,7 @@ class _HomeContentState extends State<HomeContent> {
                       Container(
                           width: double.infinity,
                           padding: const EdgeInsets.only(bottom: 16),
-                          child: Text('Olá Gabriel',
+                          child: Text('Olá ${UserService().user.firstName}',
                               style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.w500,

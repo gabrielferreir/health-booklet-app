@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:health_booklet/core/exceptions/exceptions.dart';
+import 'package:health_booklet/core/prefs/preferences.dart';
 import 'package:health_booklet/repository/auth_repository.dart';
 import 'package:health_booklet/services/user.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await this
             .userService
             .save(prefs: event.prefs, email: user.email, token: user.token);
-        userService.user = user;
+        final myUser = await userService.read(prefs: Preferences());
+        userService.user = myUser;
         yield currentState.copyWith(
             loading: false, stateAuth: StateAuth.logged);
       } on NotFoundException {

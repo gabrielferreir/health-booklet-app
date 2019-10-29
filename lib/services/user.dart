@@ -1,5 +1,6 @@
 import 'package:health_booklet/core/prefs/preferences.dart';
 import 'package:health_booklet/models/user_model.dart';
+import 'package:health_booklet/repository/user_repository.dart';
 import 'package:meta/meta.dart';
 
 class UserService {
@@ -34,7 +35,16 @@ class UserService {
     final _prefs = await prefs.instance();
     final token = _prefs.getString('token');
     final email = _prefs.getString('email');
+    this.user = User(token: token, email: email);
     if (token == null) return null;
-    return User(email: email, token: token);
+    final userRepository = UserRepository();
+    final myUser = await userRepository.read();
+    return User(
+        firstName: myUser.firstName,
+        token: token,
+        email: email,
+        birthday: myUser.birthday,
+        isMale: myUser.isMale,
+        lastName: myUser.lastName);
   }
 }
