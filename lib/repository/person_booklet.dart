@@ -2,6 +2,8 @@ import 'package:health_booklet/core/api/api.dart';
 import 'package:health_booklet/core/api/api_response.dart';
 import 'package:health_booklet/core/exceptions/exceptions.dart';
 import 'package:health_booklet/models/item_list_person_booklet.dart';
+import 'package:health_booklet/models/next_vaccine_item.dart';
+import 'package:health_booklet/models/percentage_item.dart';
 import 'package:health_booklet/models/person_model.dart';
 import 'package:health_booklet/models/person_model.dart';
 import 'package:health_booklet/models/user_model.dart';
@@ -81,6 +83,28 @@ class PersonBookletRepository {
         body: {'value': value});
 
     if (response.statusCode == 200) return true;
+    return throw UnknownException();
+  }
+
+  percentage() async {
+    ApiResponse response =
+        await api.request(method: Method.get, path: '/person-booklet/percentage');
+
+    if (response.statusCode == 200)
+      return List<PercentagemItem>.from(
+          response.body.map((item) => PercentagemItem.fromJSON(item)).toList());
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
+
+  nextVaccines() async {
+    ApiResponse response = await api.request(
+        method: Method.get, path: '/person-booklet/next-vaccines');
+
+    if (response.statusCode == 200)
+      return List<NextVaccineItem>.from(
+          response.body.map((item) => NextVaccineItem.fromJSON(item)).toList());
+    if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }
 }

@@ -1,21 +1,31 @@
 import 'package:equatable/equatable.dart';
+import 'package:health_booklet/models/next_vaccine_item.dart';
+import 'package:health_booklet/models/percentage_item.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 class HomeState extends Equatable {
   final bool loading;
-  final List list;
+  final List<PercentagemItem> listPercentage;
+  final List<NextVaccineItem> listVaccine;
 
-  HomeState({this.loading = false, this.list = const []})
-      : super([loading, list]);
+  HomeState(
+      {this.loading = false,
+      this.listPercentage = const [],
+      this.listVaccine = const []})
+      : super([loading, listPercentage, listVaccine]);
 
   factory HomeState.initial() {
-    return HomeState();
+    return HomeState(loading: true);
   }
 
-  HomeState copyWith({bool loading, List list}) {
+  HomeState copyWith(
+      {bool loading,
+      List<PercentagemItem> listPercentage,
+      List<NextVaccineItem> listVaccine}) {
     return HomeState(
-        list: list ?? this.list,
-        loading: loading == null ? this.loading : loading);
+        loading: loading == null ? this.loading : loading,
+        listPercentage: listPercentage ?? this.listPercentage,
+        listVaccine: listVaccine ?? this.listVaccine);
   }
 }
