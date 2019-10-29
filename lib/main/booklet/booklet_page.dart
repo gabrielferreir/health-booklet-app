@@ -12,9 +12,19 @@ class BookletPage extends StatefulWidget {
 class _BookletPageState extends State<BookletPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      builder: (BuildContext context) => BookletBloc()..dispatch(Started()),
-      child: BookletContent(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Minhas Cardernetas',
+          style: TextStyle(color: Theme.of(context).primaryColor),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: BlocProvider(
+        builder: (BuildContext context) => BookletBloc()..dispatch(Started()),
+        child: BookletContent(),
+      ),
     );
   }
 }

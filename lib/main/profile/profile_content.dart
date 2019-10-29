@@ -14,132 +14,123 @@ class ProfileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-      if (state.loading)
-        return Center(child: CircularProgressIndicator());
-      else if (state.user != null)
-        return Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-                child: Column(
+//      if (state.loading)
+//        return Center(child: CircularProgressIndicator());
+//      else
+        return SingleChildScrollView(
+            child: state.loading || state.user == null
+                ? LinearProgressIndicator()
+                : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                  Container(
-                      width: double.infinity,
-                      child: Padding(
-                          padding: const EdgeInsets.only(top: 48.0, bottom: 24),
-                          child: CircleAvatar(
-                            child: Text(state.user.firstName[0],
-                                style: TextStyle(fontSize: 38)),
-                            backgroundColor: Theme.of(context).primaryColor,
-                            maxRadius: 65,
-                          ))),
-                  Text('${state.user.firstName} ${state.user.lastName}',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.w300)),
-                  Container(height: 24),
-                  Container(
-                    width: double.infinity,
-                    child: Row(children: <Widget>[
-                      Flexible(
-                        child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
+                        Container(
+                            width: double.infinity,
+                            child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 16.0, bottom: 24),
+                                child: CircleAvatar(
+                                  child: Text(state.user.firstName[0],
+                                      style: TextStyle(fontSize: 38)),
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                  maxRadius: 65,
+                                ))),
+                        Text('${state.user.firstName} ${state.user.lastName}',
+                            style: TextStyle(
+                                fontSize: 26, fontWeight: FontWeight.w300)),
+                        Container(height: 24),
+                        Container(
+                          width: double.infinity,
+                          child: Row(children: <Widget>[
+                            Flexible(
+                              child: Container(
+                                  height: 80,
+                                  decoration: BoxDecoration(
 //                          color: Colors.red,
-                                border: Border(
-                                    bottom: BorderSide(
-                                        width: 1, color: Colors.grey.shade200),
-                                    top: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey.shade200))),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                      state.user.isMale
-                                          ? 'MASCULINO'
-                                          : 'FEMININO',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black87)),
-                                  Text('SEXO',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.black54))
-                                ])),
-                        flex: 1,
-                        fit: FlexFit.tight,
-                      ),
-                      Flexible(
-                        child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey.shade200),
+                                          top: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey.shade200))),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                            state.user.isMale
+                                                ? 'MASCULINO'
+                                                : 'FEMININO',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black87)),
+                                        Text('SEXO',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black54))
+                                      ])),
+                              flex: 1,
+                              fit: FlexFit.tight,
+                            ),
+                            Flexible(
+                              child: Container(
+                                  height: 80,
+                                  decoration: BoxDecoration(
 //                          color: Colors.red,
-                                border: Border(
-                                    bottom: BorderSide(
-                                        width: 1, color: Colors.grey.shade200),
-                                    top: BorderSide(
-                                        width: 1, color: Colors.grey.shade200),
-                                    left: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey.shade200))),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(Age.by(state.user.birthday).toString(),
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black87)),
-                                  Text('IDADE',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.black54))
-                                ])),
-                        flex: 1,
-                        fit: FlexFit.tight,
-                      )
-                    ]),
-                  ),
-                  Container(
-                      width: double.infinity,
-                      height: 300,
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey.shade200),
+                                          top: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey.shade200),
+                                          left: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey.shade200))),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                            Age.by(state.user.birthday)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black87)),
+                                        Text('IDADE',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black54))
+                                      ])),
+                              flex: 1,
+                              fit: FlexFit.tight,
+                            )
+                          ]),
+                        ),
+                        Container(
+                            width: double.infinity,
+                            height: 300,
 //                color: Colors.red,
-                      child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.only(
-                              top: 16.0, bottom: 16.0, right: 16.0),
-                          child: Row(children: [
-                            _addDependents(context),
-                            ...state.user.persons
-                                .map<Widget>(
-                                    (item) => _dependents(item, context))
-                                .toList()
-                          ])))
-                ])),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0, top: 32),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.exit_to_app,
-                      size: 32,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    onPressed: () {
-                      UserService().logout(prefs: Preferences());
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                          ModalRoute.withName('/root'));
-                    }),
-              ),
-            )
-          ],
-        );
-      return Container();
+                            child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.only(
+                                    top: 16.0, bottom: 16.0, right: 16.0),
+                                child: Row(children: [
+                                  _addDependents(context),
+                                  ...state.user.persons
+                                      .map<Widget>(
+                                          (item) => _dependents(item, context))
+                                      .toList()
+                                ])))
+                      ]));
     });
   }
 
