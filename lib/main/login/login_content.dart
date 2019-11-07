@@ -34,9 +34,9 @@ class _LoginContentState extends State<LoginContent> {
             bloc: widget.loginBloc,
             builder: (BuildContext context, LoginState state) {
               return Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Card(
-                      elevation: 8.0,
+                      elevation: 0.0,
                       child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(children: <Widget>[
@@ -75,6 +75,9 @@ class _LoginContentState extends State<LoginContent> {
                                     width: double.infinity,
                                     child: RaisedButton(
                                         elevation: 0.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(32)
+                                        ),
                                         color: Theme.of(context).primaryColor,
                                         onPressed: _submit,
                                         child: state.loading

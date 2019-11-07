@@ -23,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
         key: _scaffoldKey,
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.only(
                   top: 120.0, bottom: 32.0, left: 32.0, right: 32.0),
               child: Text('Health Booklet',
-                  style: TextStyle(color: Colors.white70, fontSize: 28.0))),
+                  style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 28.0))),
           LoginContent(loginBloc: this.loginBloc)
         ])));
   }
