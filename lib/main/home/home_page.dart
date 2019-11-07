@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_booklet/main/home/home_content.dart';
+import 'package:health_booklet/repository/person_booklet.dart';
 import 'package:health_booklet/services/user.dart';
 import 'home.dart';
 
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.transparent,
         ),
         body: BlocProvider(
-            builder: (context) => HomeBloc()..dispatch(Started()), child: HomeContent()));
+            builder: (context) => HomeBloc(personBookletRepository: PersonBookletRepository())..dispatch(Started()), child: HomeContent()));
   }
 
   @override

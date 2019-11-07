@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 import 'home.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  final PersonBookletRepository personBookletRepository;
+
+  HomeBloc({@required this.personBookletRepository});
+
   @override
   HomeState get initialState => HomeState.initial();
 
@@ -12,18 +16,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is Started) {
       try {
+        print('STARTED');
         yield currentState.copyWith(loading: true);
-        final personBookletRepository = new PersonBookletRepository();
         final percentage = await personBookletRepository.percentage();
+        print(percentage);
         final nextVaccines = await personBookletRepository.nextVaccines();
         print(nextVaccines);
         yield currentState.copyWith(
             loading: false,
             listPercentage: percentage,
             listVaccine: nextVaccines);
-        print(event);
       } catch (e) {
         print(e);
+        yield currentState.copyWith(loading: false);
       }
     }
   }

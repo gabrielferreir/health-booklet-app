@@ -15,7 +15,7 @@ class _BookletPageState extends State<BookletPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Minhas Cardernetas',
+          'Minhas Cadernetas',
           style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         elevation: 0,
