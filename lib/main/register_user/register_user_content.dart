@@ -41,31 +41,14 @@ class _RegisterUserContentState extends State<RegisterUserContent> {
             if (state.stateRegister == StateRegister.registered) _goToLogin();
           }
         },
-        child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                    expandedHeight: 200.0,
-                    floating: false,
-                    pinned: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                        centerTitle: true,
-                        title: Text("Faça seu cadastro",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                            ))))
-              ];
-            },
-            body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
-              input(label: 'Nome', controller: widget.name),
-              input(label: 'Sobrenome', controller: widget.lastName),
-              input(label: 'E-mail', controller: widget.email),
-              input(label: 'Senha', controller: widget.pass),
-              DateField(callback: widget.birthdayCallback, selectedDate: widget.birthday),
-              Genre(callback: widget.isMaleCallback, isMale: widget.isMale)
-            ])));
+        child: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
+          input(label: 'Nome', controller: widget.name),
+          input(label: 'Sobrenome', controller: widget.lastName),
+          input(label: 'E-mail', controller: widget.email),
+          input(label: 'Senha', controller: widget.pass),
+          DateField(callback: widget.birthdayCallback, selectedDate: widget.birthday),
+          Genre(callback: widget.isMaleCallback, isMale: widget.isMale)
+        ]));
   }
 
   Widget input(

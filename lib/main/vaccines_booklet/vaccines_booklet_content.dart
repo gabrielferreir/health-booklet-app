@@ -99,8 +99,8 @@ class VaccineItemList extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => DetailPage(personVaccine: personVaccine)));
-        },
-      ),
+        }
+      )
     );
   }
 }

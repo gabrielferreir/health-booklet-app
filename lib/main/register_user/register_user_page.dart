@@ -48,6 +48,15 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                     ? CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
                     : Icon(Icons.save)),
+            appBar: AppBar(
+              title: Text('Faça seu cadastro',
+                  style: TextStyle(color: Theme.of(context).primaryColor)),
+              backgroundColor: Colors.transparent,
+              iconTheme: IconThemeData(
+                color: Theme.of(context).primaryColor
+              ),
+              elevation: 0.0,
+            ),
             body: RegisterUserContent(
               registerUserBloc: registerUserBloc,
               name: name,

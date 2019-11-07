@@ -6,7 +6,6 @@ import 'package:health_booklet/models/percentage_item.dart';
 import 'package:health_booklet/services/user.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-
 class HomeContent extends StatefulWidget {
   @override
   _HomeContentState createState() => _HomeContentState();
@@ -22,37 +21,39 @@ class _HomeContentState extends State<HomeContent> {
             padding: const EdgeInsets.all(16),
             child: state.loading
                 ? LinearProgressIndicator()
-                : Column(
-                    children: <Widget>[
-                      Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Text('Olá ${UserService().user.firstName}',
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).primaryColor))),
-                      ListTile(
-                          title: Text('Suas cadernetas',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black54))),
-                      ...state.listPercentage
-                          .map<Widget>((item) => Progress(item: item))
-                          .toList(),
-                      ListTile(
-                          title: Text('Proximas vacinas',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black54))),
-                      ...state.listVaccine
-                          .map<Widget>((item) => CardVaccine(item: item))
-                          .toList(),
+                : state.listVaccine.length > 0
+                    ? Column(
+                        children: <Widget>[
+                          Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Text('Olá ${UserService().user.firstName}',
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context).primaryColor))),
+                          ListTile(
+                              title: Text('Suas cadernetas',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.black54))),
+                          ...state.listPercentage
+                              .map<Widget>((item) => Progress(item: item))
+                              .toList(),
+                          ListTile(
+                              title: Text('Proximas vacinas',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.black54))),
+                          ...state.listVaccine
+                              .map<Widget>((item) => CardVaccine(item: item))
+                              .toList(),
 //                MyCard(),
-                    ],
-                  ));
+                        ],
+                      )
+                    : Text('Você não possui nenhuma caderneta'));
       },
     );
   }
@@ -171,12 +172,21 @@ class CardVaccine extends StatelessWidget {
             ),
             item.maxDate.isAfter(DateTime.now())
                 ? Column(children: <Widget>[
-                    Text(timeago.format(item.minDate, allowFromNow: true, locale: 'pt_BR_short').replaceAll(RegExp('[^0-9.]'), ''),
+                    Text(
+                        timeago
+                            .format(item.minDate,
+                                allowFromNow: true, locale: 'pt_BR_short')
+                            .replaceAll(RegExp('[^0-9.]'), ''),
                         style: TextStyle(
                             fontSize: 24,
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w500)),
-                    Text(timeago.format(item.minDate, allowFromNow: true, locale: 'pt_BR_short').replaceAll(RegExp('[0-9.]'), '').toUpperCase(),
+                    Text(
+                        timeago
+                            .format(item.minDate,
+                                allowFromNow: true, locale: 'pt_BR_short')
+                            .replaceAll(RegExp('[0-9.]'), '')
+                            .toUpperCase(),
                         style: TextStyle(
                             fontSize: 14,
                             color: Theme.of(context)
